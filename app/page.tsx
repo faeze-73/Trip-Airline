@@ -1,103 +1,129 @@
+"use client";
 import Image from "next/image";
+import { FaPlaneDeparture, FaHome, FaExchangeAlt } from "react-icons/fa";
+import { useState } from "react";
 
 export default function Home() {
+  const [flightType, setFlightType] = useState<"international" | "domestic">(
+    "international"
+  );
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+
+  const handleSwap = () => {
+    setOrigin(destination);
+    setDestination(origin);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <main>
+      {/* Airplane Image Section with Text Overlay */}
+      <div className="w-full relative h-64 md:h-110">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+          src="/airplane-wing.png" // Make sure the image is in public/hero.jpg
+          alt="Airplane wing in the sky"
+          fill
+          className="object-cover"
           priority
         />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        {/* Text Overlay */}
+        <div className="absolute left-8 top-1/2 -translate-y-1/2 z-10">
+          <h1 className="text-2xl md:text-4xl font-bold text-white drop-shadow-lg">
+            Fast & Easy <br />
+            Book your airline ticket with Bilito
+          </h1>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </div>
+
+      {/* Flight Search Box */}
+      <div className="relative z-20 max-w-7xl mx-auto -mt-12">
+        <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4">
+          <div className="flex gap-2">
+            <button
+              className={`flex items-center gap-2 px-5 py-2 rounded-full font-semibold border transition-all duration-200 shadow-sm
+                ${
+                  flightType === "international"
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-blue-600 border-blue-600"
+                }`}
+              onClick={() => setFlightType("international")}
+            >
+              <FaPlaneDeparture className="text-lg" />
+              International Flight
+            </button>
+            <button
+              className={`flex items-center gap-2 px-5 py-2 rounded-full font-semibold border transition-all duration-200 shadow-sm
+                ${
+                  flightType === "domestic"
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-blue-600 border-blue-600"
+                }`}
+              onClick={() => setFlightType("domestic")}
+            >
+              <FaHome className="text-lg" />
+              Domestic Flight
+            </button>
+          </div>
+
+          <div className="flex flex-wrap gap-4">
+            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-" placeholder="Origin" />
+            <button
+              type="button"
+              onClick={handleSwap}
+              className="rounded-full transition"
+              aria-label="Swap origin and destination"
+            >
+              <FaExchangeAlt className="text-gray-500 hover:text-gray-700 " />
+            </button>
+            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Destination" />
+            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Departure Date" />
+            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Return Date" />
+            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Passengers" />
+            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Class" />
+            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-sm">Search</button>
+          </div>
+            {/*<input
+              className="flex-1 p-3 border rounded-lg text-right"
+              placeholder="Origin"
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={handleSwap}
+              className="mx-1 p-2 rounded-full border border-gray-300 bg-white hover:bg-gray-100 transition"
+              aria-label="Swap origin and destination"
+            >
+              <FaExchangeAlt className="text-gray-500" />
+            </button>
+            <input
+              className="flex-1 p-3 border rounded-lg text-right"
+              placeholder="Destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+            />
+          </div>
+          <input
+            className="flex-1 min-w-[120px] p-3 border rounded-lg"
+            placeholder="Departure Date"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <input
+            className="flex-1 min-w-[120px] p-3 border rounded-lg"
+            placeholder="Return Date"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <input
+            className="flex-1 min-w-[120px] p-3 border rounded-lg"
+            placeholder="Passengers"
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <input
+            className="flex-1 min-w-[120px] p-3 border rounded-lg"
+            placeholder="Class"
+          />
+          <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold">
+            Search
+          </button>*/}
+        </div>
+      </div>
+    </main>
   );
 }
