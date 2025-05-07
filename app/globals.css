@@ -1,15 +1,46 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #1D91CC;
+  --color-primary-tint-5: #77BDED;
+  --color-primary-tint-4: #A5D3EB;
+  --color-primary-tint-3: #B8DEF0;
+  --color-primary-tint-2: #D2E9F5;
+  --color-primary-tint-1: #E8F4FA;
+  --color-primary-shade-5: #061D29;
+  --color-primary-shade-4: #092B3D;
+  --color-primary-shade-3: #0C3A52;
+  --color-primary-shade-2: #11577A;
+  --color-primary-shade-1: #1774A3;
+
+  --color-gray-1: #F9F9F9;
+  --color-gray-2: #EDEDED;
+  --color-gray-3: #DFDFDF;
+  --color-gray-4: #CBCBCB;
+  --color-gray-5: #ADADAD;
+  --color-gray-6: #868686;
+  --color-gray-7: #606060;
+  --color-gray-8: #404040;
+  --color-gray-9: #202020;
+
+  --color-black: #0C0C0C;
+
+  --color-error: #C30000;
+  --color-error-light-1: #ED2E2E;
+  --color-error-light-2: #FFF2F2;
+
+  --color-success: #00966D;
+  --color-success-light-1: #00BA88;
+  --color-success-light-2: #F3FDFA;
+
+  --color-warning: #A9791C;
+  --color-warning-light-1: #F4B740;
+  --color-warning-light-2: #FFF8E1;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
