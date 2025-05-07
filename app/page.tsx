@@ -66,7 +66,12 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-" placeholder="Origin" />
+            <input 
+              className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" 
+              placeholder="Origin"
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+            />
             <button
               type="button"
               onClick={handleSwap}
@@ -75,7 +80,12 @@ export default function Home() {
             >
               <FaExchangeAlt className="text-gray-500 hover:text-gray-700 " />
             </button>
-            <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Destination" />
+            <input 
+              className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" 
+              placeholder="Destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+            />
             <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Departure Date" />
             <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Return Date" />
             <input className="flex-1 min-w-[120px] p-3 border rounded-lg text-sm" placeholder="Passengers" />
