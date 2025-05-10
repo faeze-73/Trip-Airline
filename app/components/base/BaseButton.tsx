@@ -6,6 +6,7 @@ type BaseButtonProps = {
   iconRight?: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  textColor?: string;
 };
 
 export default function BaseButton({
@@ -14,10 +15,11 @@ export default function BaseButton({
   iconRight,
   className = "",
   onClick,
+  textColor = "text-white",
 }: BaseButtonProps) {
   return (
     <button
-      className={`bg-primary hover:bg-primary-shade-1 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 ${className}`}
+      className={`bg-primary hover:bg-primary-shade-1 px-4 py-2 rounded-lg flex items-center justify-center gap-2 ${textColor} ${className}`}
       onClick={onClick}
     >
       {iconLeft && <span className="flex items-center">{iconLeft}</span>}
