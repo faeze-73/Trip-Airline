@@ -15,7 +15,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="max-w-7xl mx-auto bg-white">
+    <header style={{ width: "1226px" }} className="mx-auto bg-white">
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         {/* Logo and Brand */}
         <div className="flex items-center gap-2 cursor-pointer">
