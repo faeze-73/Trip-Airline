@@ -1,13 +1,21 @@
 import IconUser from "../icons/IconUser";
 import IconPhone from "../icons/IconPhone"
-import AirPlane from "../icons/AirPlane";
+import AirPlaneOutline from "../icons/AirPlaneOutline";
 import ExChange from "../icons/ExChange";
+import HistoryClock from "../icons/HistoryClock";
+import ArrowIcon from "../icons/ArrowIcon";
+import CrossSquare from "../icons/CrossSquare";
+import AirPlane from "../icons/AirPlane";
 
 const iconsMap = {
   user: IconUser,
   phone: IconPhone,
+  airPlaneOutline: AirPlaneOutline,
+  exChange: ExChange,
+  historyClock: HistoryClock,
+  arrowIcon: ArrowIcon,
+  crossSquare: CrossSquare,
   airPlane: AirPlane,
-  exChange: ExChange
 };
 
 type IconProps = {
