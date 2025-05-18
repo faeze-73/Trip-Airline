@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BaseInput from "../components/base/BaseInput";
 import Icon from "../components/base/Icon";
-import FlightTypeSelector from "./FlightTypeSelector";
+import FlightSelectorTabs from "./FlightSelectorTabs";
 import BaseButton from "../components/base/BaseButton";
 import SearchNormal from "./icons/SearchNormal";
 
@@ -19,7 +19,7 @@ const FlightSearchBox = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4">
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-4">
         <button
           className={`relative flex items-center min-h-[46px] gap-2 px-5 py-2 border transition-all duration-200 ${
             flightType === "international"
@@ -29,7 +29,7 @@ const FlightSearchBox = () => {
           onClick={() => setFlightType("international")}
         >
           <Icon
-            name="airPlane"
+            name="airPlaneOutline"
             size={flightType === "international" ? 24 : 16}
           />
           International Flight
@@ -42,13 +42,22 @@ const FlightSearchBox = () => {
           }`}
           onClick={() => setFlightType("domestic")}
         >
-          <Icon name="airPlane" size={16} />
+          <Icon name="airPlaneOutline" size={16} />
           Domestic Flight
         </button>
       </div>
 
-      <FlightTypeSelector />
-      <div className="flex flex-wrap gap-4">
+      <FlightSelectorTabs
+        items={[
+          { id: "oneWay", label: "One Way" },
+          { id: "roundTrip", label: "Round Trip" },
+          { id: "multiCity", label: "Multi City" },
+        ]}
+        defaultType="roundTrip"
+        buttonClassName="w-24 h-10 caption-md rounded-lg"
+        selectedButtonClassName="bg-primary text-white border border-primary"
+      />
+      <div className="flex flex-wrap gap-4 mt-4">
         <BaseInput
           value={origin}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -86,4 +95,3 @@ const FlightSearchBox = () => {
 };
 
 export default FlightSearchBox;
-
