@@ -15,8 +15,8 @@ const Header = () => {
   ];
 
   return (
-    <header style={{ width: "1226px" }} className="mx-auto bg-white">
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
+    <header className="mx-auto bg-white w-[1300px] max-w-full">
+      <div className="container mx-auto flex items-center justify-between py-3 px-0">
         {/* Logo and Brand */}
         <div className="flex items-center gap-2 cursor-pointer">
           <Image src="/logo.svg" alt="Bilito Logo" width={40} height={40} />
