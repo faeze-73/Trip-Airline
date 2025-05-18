@@ -6,8 +6,14 @@ import HistoryClock from "../icons/HistoryClock";
 import ArrowIcon from "../icons/ArrowIcon";
 import CrossSquare from "../icons/CrossSquare";
 import AirPlane from "../icons/AirPlane";
+import Instagram from "../icons/socialMedia/Instagram";
+import Twitter from "../icons/socialMedia/Twitter";
+import FaceBook from "../icons/socialMedia/FaceBook";
+import YouTube from "../icons/socialMedia/YouTube";
+import Telegram from "../icons/socialMedia/Telegram";
+import Linkedin from "../icons/socialMedia/Linkedin";
 
-const iconsMap = {
+const iconsMap = {      
   user: IconUser,
   phone: IconPhone,
   airPlaneOutline: AirPlaneOutline,
@@ -16,6 +22,12 @@ const iconsMap = {
   arrowIcon: ArrowIcon,
   crossSquare: CrossSquare,
   airPlane: AirPlane,
+  faceBook: FaceBook,
+  instagram: Instagram,
+  twitter: Twitter,
+  youTube: YouTube,
+  telegram: Telegram,
+  linkedin: Linkedin,
 };
 
 type IconProps = {
