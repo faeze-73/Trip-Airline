@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-interface SelectorItem {
+interface City {
   id: string;
   label: string;
 }
 
 interface FlightSelectorTabsProps {
-  items: SelectorItem[];
+  items: City[];
   title?: string;
   defaultType?: string;
   onChange?: (type: string) => void;
