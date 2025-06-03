@@ -4,9 +4,14 @@ import { FaChevronDown } from 'react-icons/fa';
 import BaseButton from './base/BaseButton';
 import Icon from './base/Icon';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
+const LoginModal = dynamic(() => import('./LoginModal'), {
+  ssr: false // Since it's a modal that only appears on client-side
+}); 
 
 const Header = () => {
   const [selectedItem, setSelectedItem] = useState('home');
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -15,7 +20,10 @@ const Header = () => {
   ];
 
   return (
-    <header className="mx-auto bg-white w-[1300px] max-w-full">
+    <header className="mx-auto bg-white w-[1300px] max-w-full relative">
+      {isLoginModalOpen && (
+        <div className="absolute inset-0 bg-black bg-opacity-40 z-40 pointer-events-none" />
+      )}
       <div className="container mx-auto flex items-center justify-between py-3 px-0">
         {/* Logo and Brand */}
         <div className="flex items-center gap-2 cursor-pointer">
@@ -72,9 +80,11 @@ const Header = () => {
             className="text-sm h-10"
             children="Login / Register" 
             iconRight={<Icon name="user" size={16} />}
+            onClick={() => setIsLoginModalOpen(true)}
           />
         </div>
       </div>
+      <LoginModal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </header>
   );
 };
