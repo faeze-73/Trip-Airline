@@ -27,12 +27,12 @@ const socialLinks = [
 ];
 
 const Footer: React.FC = () => (
-  <footer className="w-full bg-gray-50 border-t border-gray-200 pt-8 pb-4 text-gray-700">
+  <footer className="w-full bg-gray-1 pt-8 pb-4 text-gray-700">
     <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8">
       {/* App Download Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="text-right md:text-left">
-          <span className="text-gray-8 h5">Bilito App</span><br />
+          <span className="text-gray-8 h5">Trip Airline App</span><br />
           <span className="body-md text-gray-7">With the Bilito app, enjoy convenience and speed in booking your flight tickets.</span>
         </div>
         <div className="flex gap-4">
@@ -46,11 +46,11 @@ const Footer: React.FC = () => (
       </div>
 
       {/* Main Footer Content */}
-      <div className="flex flex-col md:flex-row md:justify-between gap-8 border-t border-gray-200 pt-8">
+      <div className="flex flex-col md:flex-row md:justify-between gap-8 border-t border-gray-2 pt-8">
         {/* Useful Links */}
-        <div className="flex-1 flex flex-col items-center md:items-start">
-          <div className="font-bold mb-2">Useful Links</div>
-          <ul className="space-y-1">
+        <div className="flex-1 flex flex-col items-center md:items-start text-gray-7 ">
+          <div className="h6 mb-4">Useful Links</div>
+          <ul className="space-y-1 body-md">
             {usefulLinks.map(link => (
               <li key={link.label}>
                 <a href={link.href} className="hover:text-primary transition-colors">{link.label}</a>
