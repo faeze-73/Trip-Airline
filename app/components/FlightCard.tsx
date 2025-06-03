@@ -7,6 +7,7 @@ interface FlightCardProps {
   price: number;
   currency: string;
   image: string;
+  selectedCity: string | undefined; 
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({
@@ -15,6 +16,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
   price,
   currency,
   image,
+  selectedCity,
 }) => (
   <div className="flex flex-1 items-center border border-gray-2 rounded-sm bg-white h-22">
     <img
@@ -25,9 +27,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
     <div className="flex-1 flex flex-col">
       {/* Top Section */}
       <div className="flex-1 flex items-center px-2 body-md">
-        <span className="text-gray-9">{from}</span>
+      <span className={from === selectedCity ? "text-primary" : "text-gray-9"}>{from}</span>
         <Icon name="airPlane" size={16} className="rotate-180 mx-2" />
-        <span className="text-primary">{to}</span>
+        <span className={to === selectedCity ? "text-primary" : "text-gray-9"}>{to}</span>
       </div>
       {/* Divider */}
       <div className="h-px bg-gray-200 w-full" />
