@@ -53,22 +53,22 @@ const FlightSearchBox = () => {
           { id: "roundTrip", label: "Round Trip" },
           { id: "multiCity", label: "Multi City" },
         ]}
-        defaultType="roundTrip"
         buttonClassName="w-24 h-10 caption-md rounded-lg"
         selectedButtonClassName="bg-primary text-white border border-primary"
       />
-      <div className="flex flex-wrap gap-4 mt-4">
+      <div className="flex items-center gap-4 mt-4">
         <BaseInput
           value={origin}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setOrigin(e.target.value)
           }
           placeholder="Origin"
+          colSpan={2}
         />
         <button
           type="button"
           onClick={handleSwap}
-          className="rounded-full transition"
+          className="rounded-full transition items-center justify-center"
           aria-label="Swap origin and destination"
         >
           <Icon name="exChange" size={16} />
@@ -79,15 +79,16 @@ const FlightSearchBox = () => {
             setDestination(e.target.value)
           }
           placeholder="Destination"
+          colSpan={2}
         />
-        <BaseInput placeholder="Departure Date" />
-        <BaseInput placeholder="Return Date" />
-        <BaseInput placeholder="Passengers" />
-        <BaseInput placeholder="Class" />
+        <BaseInput placeholder="Return Date" colSpan={2} />
+        <BaseInput placeholder="Passengers" colSpan={2} />
+        <BaseInput placeholder="Class" colSpan={2} />
         <BaseButton
           children="search"
-          className="button-sm w-[160px]"
+          className="button-sm w-[160px] h-[48px]"
           iconLeft={<SearchNormal width="16" height="16" />}
+          colSpan={2}
         />
       </div>
     </div>
