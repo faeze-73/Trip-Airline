@@ -1,5 +1,6 @@
 import React from "react";
 import Icon from "./base/Icon";
+import Image from "next/image";
 
 interface FlightCardProps {
   from: string;
@@ -19,11 +20,15 @@ const FlightCard: React.FC<FlightCardProps> = ({
   selectedCity,
 }) => (
   <div className="flex flex-1 items-center border border-gray-2 rounded-sm bg-white h-22">
-    <img
-      src={image}
-      alt={`${to} city`}
-      className="w-20 h-full object-cover rounded-md ml-4"
-    />
+    <div className="relative w-20 h-full rounded-tl-sm rounded-bl-sm overflow-hidden">
+      <Image
+        src={image}
+        alt={`${to} city`}
+        layout="fill"
+        objectFit="cover"
+        className="w-20 h-full"
+      />
+    </div>
     <div className="flex-1 flex flex-col">
       {/* Top Section */}
       <div className="flex-1 flex items-center px-2 body-md">
