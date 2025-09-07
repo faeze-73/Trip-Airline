@@ -22,7 +22,9 @@ const Header = () => {
   return (
     <header className="mx-auto bg-white w-[1300px] max-w-full relative">
       {isLoginModalOpen && (
-        <div className="absolute inset-0 bg-black bg-opacity-40 z-40 pointer-events-none" />
+        <div className="absolute inset-0 z-40">
+          <LoginModal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+        </div>
       )}
       <div className="container mx-auto flex items-center justify-between py-3 px-0">
         {/* Logo and Brand */}
@@ -84,7 +86,6 @@ const Header = () => {
           />
         </div>
       </div>
-      <LoginModal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </header>
   );
 };
