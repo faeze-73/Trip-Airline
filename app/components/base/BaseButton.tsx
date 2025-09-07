@@ -8,6 +8,9 @@ type BaseButtonProps = {
   onClick?: () => void;
   textColor?: string;
   colSpan?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  bgColor?: 'primary' | 'gray' | 'custom';
+  disabled?: boolean;
+
 };
 
 export default function BaseButton({
@@ -18,8 +21,18 @@ export default function BaseButton({
   onClick,
   textColor = "text-white",
   colSpan = 12,
+  bgColor = 'primary',
+  disabled = false,
 }: BaseButtonProps) {
   const widthClass = `w-${colSpan}/12`;
+
+  const bgClass = {
+    primary: disabled
+      ? 'bg-gray-200'
+      : 'bg-primary hover:bg-primary-shade-1',
+    gray: 'bg-gray-200',
+    custom: '',
+  }[bgColor];
 
   return (
     <button
