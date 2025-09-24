@@ -1,4 +1,4 @@
-import React, { forwardRef, InputHTMLAttributes, useState } from 'react';
+import React, { forwardRef, InputHTMLAttributes } from 'react';
 
 interface BaseInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -6,16 +6,7 @@ interface BaseInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
-  ({ className = '', label, value, onChange, colSpan = 12, ...props }, ref) => {
-    // For uncontrolled inputs, track value for floating label
-    const [internalValue, setInternalValue] = useState('');
-    const isControlled = value !== undefined;
-    const inputValue = isControlled ? value : internalValue;
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!isControlled) setInternalValue(e.target.value);
-      if (onChange) onChange(e);
-    };
+  ({ className = '', label, colSpan = 12, ...props }, ref) => {
 
     const widthClass = `w-${colSpan}/12`;
 
@@ -23,8 +14,6 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       <div className={`relative ${widthClass}`}>
         <input
           ref={ref}
-          value={inputValue}
-          onChange={handleChange}
           className={`
             block w-full rounded-lg border-2 border-primary bg-transparent px-4 pt-4 pb-2 text-sm
             focus:outline-none focus:border-primary transition-all
@@ -44,7 +33,6 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
               transition-all
               duration-200
               pointer-events-none
-              ${inputValue || props.placeholder ? '' : 'opacity-0'}
             `}
           >
             {label}

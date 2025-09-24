@@ -10,7 +10,7 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, confirm = true }) => {
   if (!open) return null;
   const [mobileNumber, setMobileNumber] = useState('');
-  //const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const iranianMobileRegex = /^(\+98|0)?9\d{9}$/;
   const isValidMobile = iranianMobileRegex.test(mobileNumber);
@@ -65,7 +65,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, confirm = true }
             </div>
             {/* Submit Button */}
             <button className="w-full bg-gray-200 text-gray-500 rounded-lg py-3 font-semibold">
-              Login
+              Confirm and continue
             </button>
           </>
         ) : (
