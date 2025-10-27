@@ -26,18 +26,17 @@ export default function BaseButton({
 }: BaseButtonProps) {
   const widthClass = `w-${colSpan}/12`;
 
-  const bgClass = {
-    primary: disabled
-      ? 'bg-gray-200'
-      : 'bg-primary hover:bg-primary-shade-1',
-    gray: 'bg-gray-200',
-    custom: '',
-  }[bgColor];
+  const bgClass =
+    bgColor === 'primary' ? (disabled ? 'bg-gray-200 cursor-not-allowed' : 'bg-primary hover:bg-primary-shade-1')
+      : bgColor === 'gray'
+        ? 'bg-gray-200'
+        : '';
 
   return (
     <button
-      className={`bg-primary hover:bg-primary-shade-1 px-4 py-2 rounded-lg flex items-center justify-center gap-2 ${textColor} ${widthClass} ${className}`}
+      className={`${bgClass} px-4 rounded-lg flex items-center justify-center gap-2 ${textColor} ${widthClass} ${className}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {iconLeft && <span className="flex items-center">{iconLeft}</span>}
       <span>{children}</span>
