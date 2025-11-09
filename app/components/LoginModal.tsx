@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BaseInput from "./base/BaseInput";
 import BaseButton from "./base/BaseButton";
+import { useSimplePhoneAuth } from "@/hooks/useSimplePhoneAuth";
 
 interface LoginModalProps {
   open: boolean;
@@ -12,18 +13,45 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [isChecked, setIsChecked] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", "", ""]);
+
+  const { sendOTP, verifyOTP, loading, error, otpSent } = useSimplePhoneAuth();
 
   const iranianMobileRegex = /^(\+98|0)?9\d{9}$/;
   const isValidMobile = iranianMobileRegex.test(mobileNumber);
+
+  // Helper function to format phone number consistently
+  const formatPhoneNumber = (phoneNumber: string): string => {
+    let formattedNumber = phoneNumber;
+    if (formattedNumber.startsWith('09')) {
+      formattedNumber = '+98' + formattedNumber.substring(1);
+    } else if (formattedNumber.startsWith('9')) {
+      formattedNumber = '+98' + formattedNumber;
+    } else if (!formattedNumber.startsWith('+98')) {
+      formattedNumber = '+98' + formattedNumber;
+    }
+    return formattedNumber;
+  };
 
   const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMobileNumber(e.target.value);
   }
 
-  const handleConfirmClick = () => {
+  const handleConfirmClick = async () => {
     if (isValidMobile && isChecked) {
-      setShowVerification(true);
+      console.log('Sending OTP...');
+
+      const formattedNumber = formatPhoneNumber(mobileNumber);
+      console.log('Formatted number:', formattedNumber);
+
+      const result = await sendOTP(formattedNumber);
+      console.log('OTP result:', result);
+      if (result.success) {
+        setShowVerification(true);
+      }
+    } else {
+      console.log('Validation failed - not sending OTP');
     }
   }
 
@@ -37,6 +65,33 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       if (value && index < 4) {
         const nextInput = document.getElementById(`code-${index + 1}`);
         nextInput?.focus();
+      }
+    }
+  }
+
+  const handleVerifyClick = async () => {
+    const otp = verificationCode.join('');
+    if (otp.length === 5) {
+      const formattedNumber = formatPhoneNumber(mobileNumber);
+      console.log('Verifying OTP for:', formattedNumber);
+      console.log('OTP entered:', otp);
+
+      const result = await verifyOTP(otp, formattedNumber);
+      if (result.success) {
+        // Show success message
+        console.log('User verified successfully:', result.user);
+        setShowSuccess(true);
+
+        // Close modal after 2 seconds
+        setTimeout(() => {
+          onClose();
+          // Reset states when modal closes
+          setShowSuccess(false);
+          setShowVerification(false);
+          setMobileNumber("");
+          setVerificationCode(["", "", "", "", ""]);
+          setIsChecked(false);
+        }, 2000);
       }
     }
   }
@@ -63,7 +118,24 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
           <span className="text-2xl font-bold text-primary">Trip Airline</span>
         </div>
         {/* Content */}
-        {!showVerification ? (
+        {showSuccess ? (
+          <>
+            {/* Success Message */}
+            <div className="text-center py-8">
+              <div className="mb-4">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+              <h2 className="text-center h7 mb-2 text-gray-8">Success!</h2>
+              <p className="text-center text-gray-7 body-ms">
+                You have successfully logged in.
+              </p>
+            </div>
+          </>
+        ) : !showVerification ? (
           <>
             <h2 className="text-center h7 mb-2 text-gray-8">Login or Register</h2>
             <p className="text-center text-gray-7 mb-6 body-ms">
@@ -97,6 +169,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
                 .
               </label>
             </div>
+            {/* Error Display */}
+            {error && (
+              <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                {error}
+              </div>
+            )}
+
             {/* Submit Button */}
             <BaseButton
               bgColor={isValidMobile && isChecked ? "primary" : "gray"}
@@ -105,8 +184,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
                 : "text-gray-500"
                 }`}
               onClick={handleConfirmClick}
+              disabled={loading}
             >
-              Confirm and continue
+              {loading ? "Sending..." : "Confirm and continue"}
             </BaseButton>
           </>
         ) : (
@@ -126,7 +206,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
                   maxLength={1}
                   value={digit}
                   onChange={(e) => handleVerificationChange(index, e.target.value)}
-                  className="w-12 h-12 text-center border-2 rounded-lg text-lg font-semibold focus:outline-none]"
+                  className="w-12 h-12 text-center border-2 rounded-lg text-lg font-semibold focus:outline-none"
                 />
               ))}
             </div>
@@ -142,6 +222,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
               </button>
             </div>
 
+            {/* Error Display */}
+            {error && (
+              <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                {error}
+              </div>
+            )}
+
             {/* Verify Button */}
             <BaseButton
               disabled={!verificationCode.every(digit => digit !== "")}
@@ -150,8 +237,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
                 ? "text-white hover:bg-blue-700"
                 : "text-gray-500"
                 }`}
+              onClick={handleVerifyClick}
+              disabled={loading}
             >
-              Verify
+              {loading ? "Verifying..." : "Verify"}
             </BaseButton>
           </>
         )}
