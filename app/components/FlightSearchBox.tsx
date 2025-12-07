@@ -85,11 +85,12 @@ const FlightSearchBox = () => {
         <BaseInput placeholder="Passengers" colSpan={2} />
         <BaseInput placeholder="Class" colSpan={2} />
         <BaseButton
-          children="search"
           className="button-sm w-[160px] h-[48px]"
           iconLeft={<SearchNormal width="16" height="16" />}
           colSpan={2}
-        />
+        >
+          search
+        </BaseButton>
       </div>
     </div>
   );

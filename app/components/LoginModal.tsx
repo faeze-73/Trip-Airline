@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BaseInput from "./base/BaseInput";
 import BaseButton from "./base/BaseButton";
 import { useSimplePhoneAuth } from "@/hooks/useSimplePhoneAuth";
+import { formatPhoneNumber, iranianMobileRegex } from "../utils/phoneUtils";
 
 interface LoginModalProps {
   open: boolean;
@@ -16,23 +17,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", "", ""]);
 
-  const { sendOTP, verifyOTP, loading, error, otpSent } = useSimplePhoneAuth();
+  const { sendOTP, verifyOTP, loading, error } = useSimplePhoneAuth();
 
-  const iranianMobileRegex = /^(\+98|0)?9\d{9}$/;
   const isValidMobile = iranianMobileRegex.test(mobileNumber);
-
-  // Helper function to format phone number consistently
-  const formatPhoneNumber = (phoneNumber: string): string => {
-    let formattedNumber = phoneNumber;
-    if (formattedNumber.startsWith('09')) {
-      formattedNumber = '+98' + formattedNumber.substring(1);
-    } else if (formattedNumber.startsWith('9')) {
-      formattedNumber = '+98' + formattedNumber;
-    } else if (!formattedNumber.startsWith('+98')) {
-      formattedNumber = '+98' + formattedNumber;
-    }
-    return formattedNumber;
-  };
 
   const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMobileNumber(e.target.value);

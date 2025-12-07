@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import Icon from "./base/Icon";
 
 const usefulLinks = [
@@ -25,7 +26,7 @@ const Footer: React.FC = () => (
         </div>
         <div className="flex gap-4">
           <a href="#" className="inline-block">
-            <img
+            <Image
               src="/appleStore.png"
               alt="Apple Store"
               width={182}
@@ -34,7 +35,7 @@ const Footer: React.FC = () => (
             />
           </a>
           <a href="#" className="inline-block">
-            <img
+            <Image
               src="/playStore.png"
               alt="Play Store"
               width={182}
@@ -65,7 +66,7 @@ const Footer: React.FC = () => (
         </div>
         {/* Address & Support */}
         <div className="flex-1 flex flex-col items-center md:items-start">
-          <img src="/logo.svg" alt="Bilito Logo" width={100} className="mb-2" />
+          <Image src="/logo.svg" alt="Bilito Logo" width={100} height={40} className="mb-2" />
           <div className="font-bold text-primary text-lg mb-1">Bilito</div>
           <div className="mb-1">
             Support:{" "}
