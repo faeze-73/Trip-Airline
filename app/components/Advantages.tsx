@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 const advantages = [
   {
@@ -30,7 +29,7 @@ const Advantages: React.FC<AdvantagesProps> = ({ className = "" }) => (
       {advantages.map((item, idx) => (
         <div key={idx} className="flex flex-col items-center flex-1 h-full justify-center">
           <div className="flex items-center justify-center">
-            <Image
+            <img
               src={item.image}
               alt={item.title}
               width={96}
