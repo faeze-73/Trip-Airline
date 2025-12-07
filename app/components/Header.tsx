@@ -80,10 +80,11 @@ const Header = () => {
           </div>
           <BaseButton 
             className="text-sm h-10"
-            children="Login / Register" 
             iconRight={<Icon name="user" size={16} />}
             onClick={() => setIsLoginModalOpen(true)}
-          />
+          >
+            Login / Register
+          </BaseButton>
         </div>
       </div>
     </header>
