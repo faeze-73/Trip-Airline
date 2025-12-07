@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import BaseInput from "./base/BaseInput";
 import BaseButton from "./base/BaseButton";
 import { useSimplePhoneAuth } from "@/hooks/useSimplePhoneAuth";
@@ -11,7 +12,7 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
-  if (!open) return null;
+ 
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [isChecked, setIsChecked] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
@@ -19,6 +20,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [verificationCode, setVerificationCode] = useState(["", "", "", "", ""]);
 
   const { sendOTP, verifyOTP, loading, error } = useSimplePhoneAuth();
+
+  if (!open) return null;
 
   const isValidMobile = iranianMobileRegex.test(mobileNumber);
 
@@ -102,7 +105,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
         </button>
         {/* Logo */}
         <div className="flex flex-col items-center mb-6">
-          <img src="/logo.svg" alt="Bilito Logo" className="w-12 h-12 mb-2" />
+          <Image src="/logo.svg" alt="Bilito Logo" className="w-12 h-12 mb-2" />
           <span className="text-2xl font-bold text-primary">Trip Airline</span>
         </div>
         {/* Content */}
@@ -219,14 +222,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
 
             {/* Verify Button */}
             <BaseButton
-              disabled={!verificationCode.every(digit => digit !== "")}
+              disabled={!verificationCode.every(digit => digit !== "") || loading}
               bgColor={verificationCode.every(digit => digit !== "") ? "primary" : "gray"}
               className={`w-full py-3 font-semibold ${verificationCode.every(digit => digit !== "")
                 ? "text-white hover:bg-blue-700"
                 : "text-gray-500"
                 }`}
               onClick={handleVerifyClick}
-              disabled={loading}
             >
               {loading ? "Verifying..." : "Verify"}
             </BaseButton>
