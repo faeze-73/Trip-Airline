@@ -66,7 +66,7 @@ const Footer: React.FC = () => (
         </div>
         {/* Address & Support */}
         <div className="flex-1 flex flex-col items-center md:items-start">
-          <Image src="/logo.svg" alt="Bilito Logo" width={100} className="mb-2" />
+          <Image src="/logo.svg" alt="Bilito Logo" width={100} height={80}className="mb-2" />
           <div className="font-bold text-primary text-lg mb-1">Bilito</div>
           <div className="mb-1">
             Support:{" "}
