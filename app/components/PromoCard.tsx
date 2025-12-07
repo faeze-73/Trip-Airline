@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface PromoCardProps {
   image: string;
@@ -20,7 +21,7 @@ const PromoCard: React.FC<PromoCardProps> = ({
       className="relative rounded-lg overflow-hidden shadow-md bg-white flex flex-col cursor-pointer"
       style={{ width, height }}
     >
-      <img
+      <Image
         src={image}
         alt={title}
         className="w-full h-full object-cover absolute top-0 left-0 z-0"
