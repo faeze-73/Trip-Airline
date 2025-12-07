@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaTimes } from "react-icons/fa";
 import Icon from "./base/Icon";
 
 const mockHistory = [
