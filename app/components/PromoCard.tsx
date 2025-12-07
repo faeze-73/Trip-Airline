@@ -24,7 +24,8 @@ const PromoCard: React.FC<PromoCardProps> = ({
       <Image
         src={image}
         alt={title}
-        className="w-full h-full object-cover absolute top-0 left-0 z-0"
+        fill
+        className="object-cover absolute top-0 left-0 z-0"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent z-10" />
       <div className="relative z-20 flex flex-col justify-end h-full p-4 gap-2">
