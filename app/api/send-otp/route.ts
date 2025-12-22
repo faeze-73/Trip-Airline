@@ -13,11 +13,6 @@ export async function POST(request: NextRequest) {
 
     // Generate a random 5-digit OTP
     const otp = Math.floor(10000 + Math.random() * 90000).toString();
-
-    // In a real app, you would:
-    // 1. Store the OTP in a database/cache with expiration
-    // 2. Send SMS using a service like Twilio, AWS SNS, etc.
-    
     console.log(`OTP for ${phoneNumber}: ${otp}`);
     
     // For development, we'll store it in a simple way
